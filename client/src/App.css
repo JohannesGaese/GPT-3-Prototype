@@ -166,13 +166,7 @@ img {
   border-color: #009;
 }
 
-.bg {
-  width: '88%';
-  height: '100%';
-  background-image: url("../src/assests/DonationPic.png");
-  background-size: 'cover';
-  
-}
+
 
 /* modal */
 .modal {
