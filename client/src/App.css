@@ -1,0 +1,196 @@
+.App {
+  text-align: left ;
+  font-family: 'Cabin', sans-serif;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.btn-Vis3 {
+  background-color: #009 !important;
+  color: #ffffff !important;
+  border: #ffffff !important;
+}
+.btn-Vis3:hover {
+  background-color: #ffffff !important;
+  color: #009 !important;
+  border: 1pt solid #009 !important;
+}
+
+.btn-VisDropdown {
+  color: #ffffff;
+  border-color: #009;
+}
+
+/* Navbar */
+.nav-VIS1 {
+  background-color: #009;
+  padding-top: 30px;
+  padding-bottom: 10px;
+  color: #ffffff !important;
+}
+
+.navbar-light.navbar-nav.nav-link {
+  color: #ffffff}
+
+.navbar-light.navbar-nav.nav-link:hover {
+  color: #009;
+  background-color: #ffffff;
+  
+}
+
+.navbar-expand .navbar-nav .nav-link {
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+/* Card and Filter*/
+.card-title-Vis {
+  margin-bottom: 0.75rem;
+  justify-content: center !important;
+}
+
+.cardLink,
+.cardLink:hover,
+.cardLink:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+.resetFilter {
+  color: #009;
+  transition: transform 1s ease-out;
+}
+
+/* Pictures */
+
+
+.card-img, .card-img-top, .card-img-bottom {
+    flex-shrink: 0;
+    width: 100%;
+    
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+}
+
+.form-label {
+  color: #009;
+  
+}
+
+/*
+.card-header {
+  background-color: #009 !important;
+  text-align: center !important;
+  color: #ffffff;
+  
+}
+*/
+
+/* Buttons */
+  
+
+.btn-Vis1 {
+  color: #009 !important;
+  background-color: #ffffff !important;
+  border: 1pt solid #009 !important;
+}
+.btn-Vis4 {
+  color: #ffffff !important;
+  background-color: #009 !important;
+  
+}
+.btn-Vis4:hover {
+  color: #009 !important;
+  background-color: #ffffff!important;
+  
+}
+
+.btn-Card {
+  color: black !important;
+  background-color: #e4d6ff !important;
+  border-color: black !important;
+}
+
+.btn-Card:hover {
+  color: #e4d6ff !important;
+  background-color: black !important;
+  border-color: #e4d6ff !important;
+}
+
+.btn-Vis1:hover {
+  color: #ffffff !important;
+  background-color: #009 !important;
+}
+
+.dropdown-Vis1 {
+  background-color: #ffffff;
+  color: #009;
+  border-color: #009;
+}
+
+.bg {
+  width: '88%';
+  height: '100%';
+  background-image: url("../src/assests/DonationPic.png");
+  background-size: 'cover';
+  
+}
+
+/* modal */
+.modal {
+  text-align: center !important;
+  padding: 0!important;
+  }
+
+  .carousel-caption{
+    height: 300px !important;
+}
+
+.btn-Vis5 {
+  background-color: #009 !important;
+  color: #ffffff !important;
+}
+
+.btn-Vis5:hover {
+  background-color: #ffffff !important;
+  color: #009 !important;
+  border-color: #009 !important;
+}
