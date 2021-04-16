@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 
 
-import Bild2 from "../../assests/Bild2.png"
-
 import { Link, useLocation } from "react-router-dom";
 
 
@@ -56,7 +54,7 @@ const VisNavbar = () => {
             as={Link} 
             to="/home"
           >
-            <img
+            {/*<img
             
               src={Bild2}
               height="50"
@@ -64,8 +62,9 @@ const VisNavbar = () => {
               className="d-inline-block mx-3"
               
             />
+            */}
           </Navbar.Brand>
-          <h3>Make Your Impact Transparent</h3>
+          <h3>GEORG</h3>
           <Navbar.Collapse>
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav 
@@ -93,7 +92,7 @@ const VisNavbar = () => {
                 {loggedIn && (
                   <Nav.Link as={Link} to="/database">
                   <div className="navbar-light navbar-nav nav-link" style={{ fontSize: "large" }} variant="white">
-                    Donation Database
+                    Database
                   </div>
                 </Nav.Link>
                 )}
@@ -114,7 +113,7 @@ const VisNavbar = () => {
             <Navbar.Collapse className="justify-content-end m50">
               <DropdownButton 
                 
-                title="Deutsche Börse Group"
+                title="Allen & Overy LLP"
                 alignRight
               >
                 <Dropdown.Item as={Link} /*to="/settings"*/>
