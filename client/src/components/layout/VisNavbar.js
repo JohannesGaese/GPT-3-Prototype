@@ -70,19 +70,11 @@ const VisNavbar = () => {
               <Nav 
                 className="mx-3 mr-auto"
                 >
-
                 <Nav.Link as={Link} to="/home" active="/home">
                   <div className="navbar-light navbar-nav nav-link"  style={{ fontSize: "large" }}>
                     Home
                   </div>
                 </Nav.Link>
-                {loggedIn && (
-                  <Nav.Link as={Link} to="/impactcalculator">
-                  <div className="navbar-light navbar-nav nav-link" style={{ fontSize: "large" }} variant="white">
-                    Impact Calculator
-                  </div>
-                </Nav.Link>
-                )}
                 <Nav.Link as={Link} to="/reporting" >
                   <div className="navbar-light navbar-nav nav-link"  style={{ fontSize: "large" }} >
                     Reporting 
@@ -111,7 +103,7 @@ const VisNavbar = () => {
           
           {loggedIn ==="true" && (
             <Navbar.Collapse className="justify-content-end m50">
-              <DropdownButton 
+              <DropdownButton variant="secondary" 
                 
                 title="Allen & Overy LLP"
                 alignRight

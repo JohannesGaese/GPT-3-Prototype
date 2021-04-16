@@ -30,87 +30,116 @@ import {
     distance: 200,
   };
 
-const x = axios.get("/api/donations/allCards")
-    .then(res => console.log(res.data))
-console.log(x)
+
 
 
 const Home = () => {
+    const[law, setLaw] = useState({
+      name: "",
+      rawContent: "",
+      metaData: "",
+      summary: "",
+      existingPolicy: "",
+      amendedPolicy: "",
+      
+    });
 
-  const { data: donations } = useSWR("/api/donations/allCards", {
-    revalidateOnFocus: false,
-  });
-  
-  useEffect(() => {
-    console.log(donations)
-  },[donations])
-  console.log(donations)
-
-
-    const [displayDonations, setDisplayDonations] = useState([]);
-    const [filteredDonations, setFilteredDonations] = useState([]);
-    const [search, setSearch] = useState("");
-    const [pageSize, setPageSize] = useState(8);
-
-    const [page, setPage] = useState(0);
-    //const { data: laws } = useSWR("/api/laws/allMerged", {
-    //  revalidateOnFocus: false,
-    //});
-
-    //useEffect(() => {
-    //    if (dummySet) {
-    //      setFilteredDonations(
-    //        getFilteredAndSortedLaws(newsfeedFilter, sorterNewsfeed, laws)
-    //      );
-    //    }
-    //}, [laws, sorterNewsfeed, newsfeedFilter]);
-    // Set correct laws to display when either laws, fitler or search changes
-    useEffect(() => {
-        if (search !== "") {
-          const fuse = new Fuse(filteredDonations, fuseOptions);
-          setDisplayDonations(fuse.search(search));
-          setPage(0);
-        } else {
-          setDisplayDonations(filteredDonations);
-          setPage(0);
-        }
-    }, [filteredDonations, search, /*sorterNewsfeed*/]);
-    const firstPage = () => {
-        setPage(0);
-    };
-    const prevPage = () => {
-        if (0 < page) {
-          setPage(page - 1);
-        }
-    };
-    const nextPage = () => {
-        if (displayDonations.length - pageSize > page * pageSize) {
-          setPage(page + 1);
-        }
-    };
-    const lastPage = () => {
-         setPage(Math.ceil(displayDonations.length / pageSize) - 1);
-    };
-    const changePageSize = (e) => {
-        e.preventDefault();
-        setPage(0);
-        setPageSize(parseInt(e.target.pageSize.value));
+    const updateLaw = (value, attribute) => {
+      let updated = {};
+      updated[attribute] = value;
+      console.log(value)
+      setLaw({ ...law, ...updated });
     };
 
-    const settingFilter = () => {
-      return
-    };
-
-    const [showFeed, setShowFeed] = useState(false);
-    const handleCloseFeed = () => setShowFeed(false);
-    const handleShowFeed = () => setShowFeed(true);
-
+   
 
     return (
         <>
-            <Container  fluid className="text-center pt-3" /*style={{backgroundColor: "#e4d6ff"}}*/>
-              
-            </Container>
+          <Container  fluid className="text-center pt-3" /*style={{backgroundColor: "#e4d6ff"}}*/>
+              <div className="mt-2 lg">
+                Test Content
+              </div>
+              <p>
+                hallo
+              </p>
+              <Form>
+                <Form.Group as={Row}>
+                  <Form.Label column sm="3">
+                    Law
+                  </Form.Label>
+                  <Col sm="9">
+                    <Form.Check
+                      inline
+                      value="law1"
+                      checked={law.name == "law1"}
+                      type="radio"
+                      label="Law1"
+                      name="law1"
+                      onChange={(e) => updateLaw(e.target.value, "name")}
+                      
+                    />
+                  </Col>
+                </Form.Group>
+                <Form.Group as={Row}>
+                  <Form.Label column sm="3">
+                    Law
+                  </Form.Label>
+                  <Col sm="9">
+                    <Form.Check
+                      inline
+                      value="law2"
+                      checked={law.name == "law2"}
+                      type="radio"
+                      label="Law2"
+                      name="law2"
+                      onChange={(e) => updateLaw(e.target.value, "name")}
+                      
+                    />
+                  </Col>
+                </Form.Group>
+                <Form.Group as={Row}>
+                  <Form.Label column sm="3">
+                    Scrape the Law
+                  </Form.Label>
+                  <Col sm="9">
+                    <Button
+                      variant="secondary"
+                      onClick={(e) => updateLaw("lel", "rawContent")}
+                    >
+                      Scrape
+                    </Button>
+                  
+                  </Col>
+                </Form.Group>
+                <Form.Group as={Row}>
+                  <Form.Label column sm="3">
+                    Output
+                  </Form.Label>
+                  <Col sm="9">
+                    <Form.Control plaintext readOnly defaultValue="email@example.com" />
+                  </Col>
+                </Form.Group>
+                <h3>
+                  Foundings
+                </h3>
+                <Form.Group as={Row}>
+                  <Form.Label column sm="3">
+                    M1
+                  </Form.Label>
+                  <Col sm="9">
+                    <Form.Control plaintext readOnly defaultValue="email@example.com" />
+                  </Col>
+                </Form.Group>
+                <Form.Group as={Row}>
+                  <Form.Label column sm="3">
+                    Summary
+                  </Form.Label>
+                  <Col sm="9">
+                    <Form.Control plaintext readOnly defaultValue="email@example.com" />
+                  </Col>
+                </Form.Group>
+              </Form>
+          </Container>
         </>
     );
 };
