@@ -128,8 +128,8 @@ img {
   
 
 .btn-Vis1 {
-  color: #009 !important;
-  background-color: #ffffff !important;
+  color: rgb(0, 0, 0) !important;
+  background-color: #b23427 !important;
   border: 1pt solid #009 !important;
 }
 .btn-Vis4 {
@@ -187,4 +187,36 @@ img {
   background-color: #ffffff !important;
   color: #009 !important;
   border-color: #009 !important;
+}
+
+/* CI */
+.primary-ci {
+  color: #b23427
+}
+
+.card1 {
+  margin: 10px;
+  box-shadow: 3px 3px 5px grey;
+}
+
+.hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.button1 {
+  box-shadow: 3px 3px 5px grey;
+  background-color: rgb(218, 218, 218);
+  color: black;
+  transition-duration: 0.2s;
+  border: hidden;
+  padding: 10px 24px;
+}
+
+.button1:hover {
+  background-color: #a1a1a1; /* Green */
+  color: black;
+  
 }
