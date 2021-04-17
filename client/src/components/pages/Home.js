@@ -237,7 +237,7 @@ const Home = () => {
     });
   };
   useEffect(() => {
-    policyAmmendment(law.existingPolicy, test_ammendment)
+    summary(test_sum)
   }, []);
   
   // Type of law, Organization, Status of Law
