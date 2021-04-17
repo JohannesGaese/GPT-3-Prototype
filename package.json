@@ -23,6 +23,7 @@
     "http": "0.0.1-security",
     "mongoose": "^5.10.11",
     "morgan": "^1.10.0",
+    "openai-node": "^1.0.3",
     "path": "^0.12.7",
     "react": "^17.0.1",
     "react-app-polyfill": "^2.0.0",
