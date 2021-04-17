@@ -50,6 +50,30 @@ const Home = () => {
     
   });
 
+  const updateTOS = (value, attribute) => {
+    const firstSplit = value.split(";");
+    const newMetaData = law.metaData
+    firstSplit.map((type, index) => {
+      if (index == 0) {
+        newMetaData.nameOfthisVersion = type.split(": ")[1];
+      } else if (index == 1) {
+        newMetaData.typeOfLaw = type.split(": ")[1];
+      } else if (index == 2) {
+        newMetaData.organization = type.split(": ")[1];
+      } else if (index == 3) {
+        newMetaData.statusOfLaw = type.split(": ")[1];
+      }
+    });
+    let updated = {};
+    updated[attribute] = newMetaData;
+    console.log(updated[attribute]);
+    setLaw({ ...law, ...updated });
+  };
+
+  //Name of this Version: Referentenentwurf;
+  //Type of law: Gesetz;
+  //Organization: Bundesministerium der Finanzen;
+  //Status of Law: Entwurf;
 
   const updateLaw = (value, attribute) => {
     let updated = {};
@@ -82,15 +106,7 @@ const Home = () => {
   useEffect(() => {
     tos(test_tos)
   }, []);
-    
-
- 
-
-    let openai  =  require("openai-node");
-
-  //   openai.api_key  =  "";
-
-
+  
   // Type of law, Organization, Status of Law
   const tos = (law) => { 
     console.log(law)
@@ -124,7 +140,7 @@ const Home = () => {
       stop: "###",
     }).then((response) => {
       console.log(response);
-      updateLaw(response.choices[0].text, "summary")
+      updateTOS(response.choices[0].text, "metaData")
       //EXAMPLE OUTPUT: She didn't go to the market.
     });
   };
