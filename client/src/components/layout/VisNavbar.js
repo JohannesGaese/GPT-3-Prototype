@@ -92,30 +92,7 @@ const VisNavbar = () => {
               </Nav>
             </Navbar.Collapse>
           </Navbar.Collapse>
-          
-          {loggedIn === "false" && (
-          <Form inline>
-            <FormControl type="text" placeholder="email" className="mr-sm-2" />
-            <FormControl type="text" placeholder="password" className="mr-sm-2" />
-            <Button variant="outline-info" onClick={login("true")}>Submit</Button>
-          </Form>
-          )}
-          
-          {loggedIn ==="true" && (
-            <Navbar.Collapse className="justify-content-end m50">
-              <DropdownButton variant="secondary" 
-                
-                title="Allen & Overy LLP"
-                alignRight
-              >
-                <Dropdown.Item as={Link} /*to="/settings"*/>
-                  User Settings
-                </Dropdown.Item>
-                <Dropdown.Item onClick={() => login("false")}>Logout</Dropdown.Item>
-              </DropdownButton>
-            </Navbar.Collapse>
 
-          )}
       </Navbar>
       
       </>
