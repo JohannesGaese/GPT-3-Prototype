@@ -9,11 +9,11 @@
 ## Available Scripts
 
 ### Important: the script command has to be combined with setting an env variable with your API key credentials
-**Example for Powershell:** ($env:REACT_APP_API_KEY = "here-is-the-api-key") -and (npm run client)
-**For Windows (cmd.exe):**  set "REACT_APP_API_KEY=here-is-the-api-key" && npm run client
-**For Linux, macOS (Bash):** REACT_APP_API_KEY=here-is-the-api-key npm run client
+**Example for Powershell:** ($env:REACT_APP_API_KEY = "here-is-the-api-key") -and (npm run client)  
+**For Windows (cmd.exe):**  set "REACT_APP_API_KEY=here-is-the-api-key" && npm run client  
+**For Linux, macOS (Bash):** REACT_APP_API_KEY=here-is-the-api-key npm run client  
 
-In the project directory, you can run:
+In the project directory, you can run:  
 
 ### `npm run client`
 
