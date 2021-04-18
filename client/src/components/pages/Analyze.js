@@ -26,6 +26,28 @@ const Analyze = () => {
   const test_sum = "Mit dem Gesetz werden aufgrund europarechtlicher Vorgaben verschiedene nationale Gesetze angepasst. Die Rechtsakte müssen entweder bis Mitte Juni 2021 umgesetzt sein oder kommen ab Ende 2021 oder Anfang 2022 erstmals zur Anwendung, sodass die nationalen Rechtsvorschriften bis dahin angepasst werden müssen. Von Bedeutung ist hier insbesondere die EU-Verordnung zur Regelung von Schwarmfinanzierungsdienstleistern, die über ihre Plattformen Kredite vermitteln. Neben einer Haftung für die Angaben im Anlageninformationsblatt werden Bußgeldtatbestände eingeführt, die zum Tragen kommen, wenn gegen die Vorgaben der EU-Verordnung verstoßen wird. Im Übrigen sind die inhaltlichen Anforderungen an die Schwarmfinanzierung in der EU-Verordnung selbst enthalten und gelten daher unmittelbar auch im Inland. Das Gesetz trägt weiter zur Umsetzung der Verordnung über ein Paneuropäisches Privates Pensionsprodukt („PEPP“) (PEPP-VO). Aufgrund dieser Verordnung werden insbesondere Sanktionsregelungen bei Verstößen gegen die PEPP-VO in das Wertpapierhandelsgesetz eingefügt, die auch für andere Aufsichtsgesetze gelten. Weiter finden sich im Gesetzentwurf Regelungen zur Umsetzung der EU-Verordnung zur Sanierung und Abwicklung von Zentralen Gegenparteien (Central Counterparties, CCPs). CCPs nehmen eine Schlüsselfunktion auf den Finanzmärkten ein, indem sie bei Transaktionen mit verschiedenen Finanzinstrumenten zwischen die Vertragsparteien treten und somit sowohl Käufer für jeden Verkäufer als auch Verkäufer für jeden Käufer sind.  Schließlich werden vor dem Hintergrund der Erfahrungen aus der Insolvenz eines Factoringinstituts verschiedene Vorschriften im Kreditwesengesetz erweitert. Damit wird u. a. der Instrumentenkasten der Bundesanstalt für Finanzdienstleistungsaufsicht  zur Stärkung der Factoringaufsicht angepasst. Insbesondere sollen künftig immer zwei Geschäftsführer vorhanden sein, um Manipulationen zu erschweren. Außerdem wird das Börsengesetz geändert. Mit der Änderung wird die bislang nur eingeschränkte Anwendbarkeit der in der Abgabenordnung enthaltenen Auskunfts-, Vorlage-, Amtshilfe- und Anzeigepflichten der Börsen gegenüber Steuerbehörden im Bereich des Börsengesetzes so erweitert, dass diese für sämtliche Steuerstrafverfahren gelten. Hierzu wird die bestehende Regelung zum Informationsaustausch mit den Steuerbehörden an entsprechende Regelungen im Bank- und Wertpapieraufsichtsrecht angepasst."
   const test_tos = "Referentenentwurf\n des Bundesministeriums der Finanzen\n Entwurf eines Gesetzes zur begleitenden Ausführung der Verordnung\n (EU) 2020/1503 und der Umsetzung der Richtlinie EU 2020/1504 zur Regelung von Schwarmfinanzierungsdienstleistern (Schwarmfinanzierung-Begleitgesetz)\n\n"
   const test_ammendment = "Paneuropäisches Privates Pensionsprodukt (PEPP)"
+  const test_corresLaws = `
+  Artikel 1 Änderung des Wertpapierhandelsgesetzes
+  Artikel 2 Weitere Änderung des Wertpapierhandelsgesetzes
+  Artikel 3 Weitere Änderung des Wertpapierhandelsgesetzes
+  Artikel 4 Änderung des Wertpapierprospektgesetzes
+  Artikel 5 Änderung des Vermögensanlagengesetzes
+  Artikel 6 Änderung des Gesetzes zur Beaufsichtigung von Wertpapierinstituten (Wertpapierinstitutsgesetz – WpIG)
+  Artikel 7 Änderung des Kreditwesengesetzes
+  Artikel 8 Weitere Änderung des Kreditwesengesetzes
+  Artikel 9 Weitere Änderung des Kreditwesengesetzes
+  Artikel 10 Änderung des Kapitalanlagegesetzbuchs
+  Artikel 11 Änderung des Sanierungs- und Abwicklungsgesetzes
+  Artikel 12 Änderung des Geldwäschegesetzes
+  Artikel 13 Änderung des Versicherungsaufsichtsgesetzes
+  Artikel 14 Änderung des Wertpapiererwerbs- und Übernahmegesetzes
+  Artikel 15 Änderung des Finanzdienstleistungsaufsichtsgesetzes
+  Artikel 16 Aufhebung der WpÜG-Beiratsverordnung
+  Artikel 17 Aufhebung der WpÜG-Widerspruchsausschuss-Verordnung
+  Artikel 18 Änderung der WpÜG-Gebührenverordnung
+  Artikel 19 Änderung der Verordnung über die Erhebung von Gebühren und die Umlegung  von Kosten nach dem Finanzdienstleistungsaufsichtsgesetz
+  Artikel 20 Weitere Änderung der Verordnung über die Erhebung von Gebühren und die Umlegung von Kosten nach dem Finanzdienstleistungsaufsichtsgesetz
+  Artikel 21 Inkrafttreten`
   // credentials for openai
   let openai  =  require("openai-node");
   openai.api_key  = "";
@@ -94,10 +116,14 @@ const Analyze = () => {
     setLaw({ ...law, ...updated });
   };
 
-  //Name of this Version: Referentenentwurf;
-  //Type of law: Gesetz;
-  //Organization: Bundesministerium der Finanzen;
-  //Status of Law: Entwurf;
+  const updateCorresLaws = (value, attribute) => {
+    const newMetaData = law.metaData;
+    newMetaData.namesOfCorrespondingLaws = value;
+    let updated = {};
+    updated[attribute] = newMetaData;
+    console.log(updated[attribute]);
+    setLaw({ ...law, ...updated });
+  }
 
   const updateLaw = (value, attribute) => {
     let updated = {};
@@ -128,26 +154,92 @@ const Analyze = () => {
     });
   };
 
-  const amendmendsSum = (text) => { 
+  const correspondingLaws = (corresLaws) => { 
     openai.Completion.create({
       engine: "davinci",
-      prompt: `Mein Anwalt fragte mich was dieses Gesetz bedeuted:\n\n'''\n ${text}\n'''\ntl;dr:\n'''`,
-      temperature: 0.25,
+      prompt: `
+      Extract Änderungen in den Gesetzen and Aufhebung von Gesetzen
+
+      ### 
+      Der Bundestag hat das folgende Gesetz beschlossen:
+      Inhaltsübersicht
+      Artikel 1 Änderung der Wertpapierdienstleistungs-Verhaltens- und Organisationsverordnung
+      Artikel 2 Änderung der WpÜG-Angebotsverordnung
+      Artikel 3 Weitere Änderung der WpÜG-Angebotsverordnung
+      Artikel 4 Änderung der Transparenzrichtlinie-Durchführungsverordnung
+      Artikel 5 Änderung des Kreditwesengesetzes
+      Artikel 6 Weitere Änderung des Kreditwesengesetzes
+      Artikel 7 Weitere Änderung des Kreditwesengesetzes
+      Artikel 8 Änderung der Verordnung über die Erhebung von Gebühren und die Umlegung von Kosten nach dem Finanzdienstleistungsaufsichtsgesetz
+      Artikel 9 Inkrafttreten
+
+      Änderungen in den Gesetzen: Wertpapierdienstleistungs-Verhaltens- und Organisationsverordnung, WpÜG-Angebotsverordnung, Transparenzrichtlinie-Durchführungsverordnung, Kreditwesengesetz, Verordnung über die Erhebung von Gebühren und die Umlegung von Kosten nach dem Finanzdienstleistungsaufsichtsgesetz
+
+      Aufhebung von Gesetzen: Keine
+      
+      ###
+      Der Bundestag hat das folgende Gesetz beschlossen:
+      Inhaltsübersicht
+      Artikel 1 Änderung der Verordnung über die Pflege und Haltung von Einhörnern
+      Artikel 2 Änderung der PfÜB-Durchsetzungsverordnung
+      Artikel 3 Weitere Änderung der PfÜB-Durchsetzungsverordnung
+      Artikel 4 Aufhebung der Kurshalteverordnung
+      Artikel 5 Änderung des Tierhaltergesetzes
+      Artikel 6 Weitere Änderung des Tierhaltergesetzes
+      Artikel 7 Weitere Änderung des Tierhaltergesetzes
+      Artikel 8 Aufhebung des Warmduschergesetzes
+      Artikel 9 Änderung der Handtuchhalterverordnung
+      Artikel 8 Aufhebung des Bier-Steuergesetzes
+      Artikel 9 Aufhebung der Bier-Garten-Verordnung
+      Artikel 10 Änderung des Marsmenschengesetzes
+      Artikel 11 Inkrafttreten
+
+      Änderungen in den Gesetzen: Verordnung über die Pflege und Haltung von Einhörnern, PfÜB-Durchsetzungsverordnung, Tierhaltergesetz, Handtuchhalterverordnung, Marsmenschengesetz
+
+      Aufhebung von Gesetzen: Kurshalteverordnung, Warmduschergesetz, Bier-Steuergesetz, Bier-Garten-Verordnung
+
+      ###
+      Der Bundestag hat das folgende Gesetz beschlossen:
+      Inhaltsübersicht 
+      ${corresLaws}\n
+      Änderungen in den Gesetzen:`,
+      temperature: 0.06,
       max_tokens: 306,
-      top_p: 0.5,
+      top_p: 0,
       frequency_penalty: 0,
       presence_penalty: 0,
       stream: false,
       logprobs: null,
       echo: false,
       best_of: 1,
-      stop: "'''",
+      stop: "###",
     }).then((response) => {
       console.log(response);
-      updateLaw(response.choices[0].text, "summary")
+      updateCorresLaws(response.choices[0].text, "metaData")
       //EXAMPLE OUTPUT: She didn't go to the market.
     });
   };
+
+  //const amendmendsSum = (text) => { 
+  //  openai.Completion.create({
+  //    engine: "davinci",
+  //    prompt: `Mein Anwalt fragte mich was dieses Gesetz bedeuted:\n\n'''\n ${text}\n'''\ntl;dr:\n'''`,
+  //    temperature: 0.25,
+  //    max_tokens: 306,
+  //    top_p: 0.5,
+  //    frequency_penalty: 0,
+  //    presence_penalty: 0,
+  //    stream: false,
+  //    logprobs: null,
+  //    echo: false,
+  //    best_of: 1,
+  //    stop: "'''",
+  //  }).then((response) => {
+  //    console.log(response);
+  //    updateLaw(response.choices[0].text, "summary")
+  //    //EXAMPLE OUTPUT: She didn't go to the market.
+  //  });
+  //};
   
   // Type of law, Organization, Status of Law
   const tos = (law) => { 
@@ -156,19 +248,6 @@ const Analyze = () => {
       engine: "davinci",
       prompt: `Aus dem Text finden wir "Type of law", "Organization", "Status of law", "Name of this Version".\n###\nUnsinnsentwurf\nder Bundesregierung\nEntwurf eines Verordnung zur Umsetzung der Richtlinie 2014/91/EU zur\nÄnderung der Richtlinie 2009/65/EG zur Koordinierung der Rechts- und\nVerwaltungsvorschriften betreffend bestimmte Organismen für gemeinsame Anlagen in Wertpapieren (OGAW) im Hinblick auf die Aufgaben der Verwahrstelle, die Vergütungspolitik und Sanktionen (OGAW-V-Umsetzungsgesetz – OGAW-V-UmsG)\nName of this Version: Unsinnsentwurf;\nType of law: Verordnung;\nOrganization: Bundesregierung;\nStatus of Law: Entwurf;\n###\n
       ${law}`,
-      //prompt: `Aus dem Text finden wir "Type of law", "Organization", "Status of law", "Name of this Version".\n
-      //###\n
-      //Unsinnsentwurf\n
-      //der Bundesregierung\n
-      //Entwurf eines Verordnung zur Umsetzung der Richtlinie 2014/91/EU zur\n
-      //Änderung der Richtlinie 2009/65/EG zur Koordinierung der Rechts- und\n
-      //Verwaltungsvorschriften betreffend bestimmte Organismen für gemeinsame Anlagen in Wertpapieren (OGAW) im Hinblick auf die Aufgaben der Verwahrstelle, die Vergütungspolitik und Sanktionen
-      //(OGAW-V-Umsetzungsgesetz – OGAW-V-UmsG)\n
-      //Name of this Version: Unsinnsentwurf;\n
-      //Type of law: Verordnung;\n
-      //Organization: Bundesregierung;\n
-      //Status of Law: Entwurf;\n
-      //###\n
       temperature: 0.06,
       max_tokens: 374,
       top_p: 0,
@@ -291,7 +370,7 @@ The legal acts must either be implemented by mid-June 2021 or will apply for the
                           <button className="button1" onClick={(e)=>tos(test_tos)}>NTOS</button>
                         </div>
                         <div className="m-auto">
-                          <button className="button1" >Corresponding Laws</button>
+                          <button className="button1" onClick={(e) => correspondingLaws(test_corresLaws)}>Corresponding Laws</button>
                         </div>
                         <div className="m-auto">
                           <button className="button1" onClick={(e)=>summary(test_sum)}>Summary</button>

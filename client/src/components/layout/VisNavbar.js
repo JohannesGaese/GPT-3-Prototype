@@ -79,7 +79,12 @@ const VisNavbar = () => {
                   <div className="navbar-light navbar-nav nav-link"  style={{ fontSize: "large" }} >
                     Implement 
                   </div>
-                </Nav.Link>                
+                </Nav.Link>
+                <Nav.Link as={Link} to="/script" active="/script">
+                  <div className="navbar-light navbar-nav nav-link"  style={{ fontSize: "large" }} >
+                    Scraper 
+                  </div>
+                </Nav.Link>                   
               </Nav>
             </Navbar.Collapse>
           </Navbar.Collapse>

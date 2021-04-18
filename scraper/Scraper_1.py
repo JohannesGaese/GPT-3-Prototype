@@ -15,8 +15,8 @@ page = requests.get(URL)
 soup = bs(page.content, 'html.parser')
 
 #Scrape Website
-gesetz = soup.find_all('div', class_='article-header')
-for gesetz in gesetz:
+gesetze = soup.find_all('div', class_='article-header')
+for gesetz in gesetze:
     category = str(gesetz.find('p', class_='dachzeile').getText())
     title = str(gesetz.find('h1', class_='isFirstInSlot').getText())
 
