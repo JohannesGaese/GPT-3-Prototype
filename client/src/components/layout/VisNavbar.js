@@ -70,25 +70,16 @@ const VisNavbar = () => {
               <Nav 
                 className="mx-3 mr-auto"
                 >
-                <Nav.Link as={Link} to="/home" active="/home">
+                <Nav.Link as={Link} to="/analyze" active="/analyze">
                   <div className="navbar-light navbar-nav nav-link"  style={{ fontSize: "large" }}>
-                    Home
+                    Analyze
                   </div>
                 </Nav.Link>
-                <Nav.Link as={Link} to="/reporting" >
+                <Nav.Link as={Link} to="/implement" active="/implement">
                   <div className="navbar-light navbar-nav nav-link"  style={{ fontSize: "large" }} >
-                    Reporting 
+                    Implement 
                   </div>
-                </Nav.Link>
-                
-                {loggedIn && (
-                  <Nav.Link as={Link} to="/database">
-                  <div className="navbar-light navbar-nav nav-link" style={{ fontSize: "large" }} variant="white">
-                    Database
-                  </div>
-                </Nav.Link>
-                )}
-                
+                </Nav.Link>                
               </Nav>
             </Navbar.Collapse>
           </Navbar.Collapse>

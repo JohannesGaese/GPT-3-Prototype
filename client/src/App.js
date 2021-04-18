@@ -8,9 +8,9 @@ import BackendRoute from "./components/routing/BackendRoute";
 
 import VisNavbar from "./components/layout/VisNavbar";
 
-import Home from "./components/pages/Home";
-
 import { withRouter } from "react-router-dom";
+import Analyze from "./components/pages/Analyze";
+import Implement from "./components/pages/Implement";
 
 
 function App({ location }) {
@@ -20,7 +20,8 @@ function App({ location }) {
           <BrowserRouter>  
             <VisNavbar/>
             <Switch>
-              <Route exact path={["/", "/home"]} component={Home} />             
+              <Route exact path={["/", "/analyze"]} component={Analyze} />
+              <Route exact path={"/implement"} component={Implement} />              
               
             </Switch>
             </BrowserRouter>
