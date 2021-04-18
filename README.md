@@ -23,5 +23,5 @@ In the project directory (GPT-3-Prototype), you can run with the OpenAI API cred
 
 ## How to use the Website  
 
-Click on the Buttons to generate automated content which Georg has create manually  
+Click on the Buttons to generate automated content which Georg has to create manually  
 
