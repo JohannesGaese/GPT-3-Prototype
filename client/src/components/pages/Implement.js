@@ -28,7 +28,7 @@ const Implement = () => {
   const test_ammendment = "Paneuropäisches Privates Pensionsprodukt (PEPP)"
   // credentials for openai
   let openai  =  require("openai-node");
-  openai.api_key  = "";
+  openai.api_key  = process.env.REACT_APP_API_KEY;
 
   const[law, setLaw] = useState({
     name: "",
