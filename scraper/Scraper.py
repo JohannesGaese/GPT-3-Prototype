@@ -145,32 +145,37 @@ Date = date
 Description (on website) = desc
 Array with all of the data above = all_data
 
-PDF
-Link to PDF = file_source
-PDF text as string = clean_text
-PDF text as list = gesetzgebung_content_w_by_w
-
 Data Scraper Robin
 Referentenentwurf (1st page) = introduction
 Artikel = artikelliste_gesetzentwurf
 
 Data Lukas
 Artikel von Lukas = part_lukas
+'''
 
+#Print statements
+print("Title: "+ "\n" + all_data[1] + "\n")
+print("Date of Publication: "+ "\n" + all_data[2] + "\n")
+print("Category: "+ "\n" + all_data[0] + "\n")
+
+print("Hyperlink: "+ "\n" + file_source + "\n")
+
+'''
+#Add the changes into a 
 vari = open("pythonvariables.js", "w")
 vari.write(
 "var LawCat = "
 "var LawTitle = "
 "var LawDate = "
-"var LawDesc = " 
-"var LawCat = "
-"var LawCat = "
-"var LawCat = "
-"var LawCat = "
-"var LawCat = "
+"var LawDesc = "
+
+"var LawPdfDesc = "
+"var LawPdf = "
+
+"var LawArticle = "
 )
 vari.close()
 
-vari = open("demofile2.txt", "r")
+vari = open("pythonvariables.js", "r")
 print(var.read())
 '''
