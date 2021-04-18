@@ -54,7 +54,7 @@ const Analyze = () => {
   const[law, setLaw] = useState({
     name: "",
     scraper: {
-      titel: "",
+      title: "",
       hyperlink: "",
       dateOfPublication: "",
     },
@@ -92,8 +92,20 @@ const Analyze = () => {
     IV. Dokumentationspflichten
     Die Darlegung etwaiger Interessenkonflikte nach Ziffer II. sowie die Beratung und Geeignetheitsprüfung im Hinblick auf das vermittelte Anlageprodukt sind hinreichend detailliert in der Kundenkartei zu dokumentieren. Der Kunde hat die Dokumentation nach dem Beratungsgespräch zu unterzeichnen.`,
     amendedPolicy: "",
-    
+
   });
+
+  const updateScrape = () => {
+    let updated = {};
+    let newScraper = {
+      title: "Gesetz zur begleitenden Ausführung der Verordnung (EU) 2020/1503 und der Umsetzung der Richtlinie EU 2020/1504 zur Regelung von Schwarmfinanzierungsdienstleistern (Schwarmfinanzierung-Begleitgesetz) und anderer europarechtlicher Finanzmarktvorschriften",
+      hyperlink: "https://www.bundesfinanzministerium.de//Content/DE/Gesetzestexte/Gesetze_Gesetzesvorhaben/Abteilungen/Abteilung_VII/19_Legislaturperiode/2021-03-24-Schwarmfinanzierung-BegleitG/1-Referentenentwurf.pdf?__blob=publicationFile&v=3",
+      dateOfPublication: "24.03.2021",
+    };
+    updated.scraper = newScraper;
+    console.log(updated.scraper)
+    setLaw({ ...law, ...updated });
+  }
 
   const updateTOS = (value, attribute) => {
     const firstSplit = value.split(";");
@@ -365,6 +377,9 @@ The legal acts must either be implemented by mid-June 2021 or will apply for the
                       <h2>GeorgPT-3</h2>
                     </div>
                     <Row className="m-3">
+                        <div className="m-auto">
+                          <button className="button1" onClick={(e)=>updateScrape()}>Scrape</button>
+                        </div>
                         <div className="m-auto">
                           <button className="button1" onClick={(e)=>tos(test_tos)}>NTOS</button>
                         </div>
