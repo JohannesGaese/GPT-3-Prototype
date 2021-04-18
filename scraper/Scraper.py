@@ -154,28 +154,46 @@ Artikel von Lukas = part_lukas
 '''
 
 #Print statements
+
 print("Title: "+ "\n" + all_data[1] + "\n")
 print("Date of Publication: "+ "\n" + all_data[2] + "\n")
 print("Category: "+ "\n" + all_data[0] + "\n")
 
 print("Hyperlink: "+ "\n" + file_source + "\n")
 
+del_intr = list(filter(None, introduction))
+del_articles = list(filter(None, artikelliste_gesetzentwurf))
+del_articles_lukas = list(filter(None, part_lukas))
+
+form_intr = ' '.join([str(elem) for elem in del_intr])
+form_articles = ' '.join([str(elem) for elem in del_articles])
+form_articles_lukas = ' '.join([str(elem) for elem in del_articles_lukas])
+
+clean_form_intr = re.sub('\n', '', form_intr)
+clean_form_art = re.sub('\n', '', form_articles)
+clean_form_art_lukas = re.sub('\n', '', form_articles_lukas)
+print("Prompt part NTOS: " + "\n" + clean_form_intr + "\n")
+print("Prompt part Corresponding Laws: " + "\n" + clean_form_art + "\n")
+print("Prompt part Implement: " + "\n" + clean_form_art_lukas + "\n")
+
+#Add the changes into a JS File
 '''
-#Add the changes into a 
 vari = open("pythonvariables.js", "w")
 vari.write(
-"var LawCat = "
-"var LawTitle = "
-"var LawDate = "
-"var LawDesc = "
+"var LawCat = " + all_data[0] + ";\n"
+"var LawTitle = " + all_data[1] + ";\n"
+"var LawDate = " + all_data[2] + ";\n"
+"var LawDesc = " + all_data[3] + ";\n"
 
-"var LawPdfDesc = "
-"var LawPdf = "
+"var HyperHyper = " + file_source + ";\n"
 
-"var LawArticle = "
+"var LawPdfDesc = " + clean_form_intr + ";\n"
+"var LawArticles = " + clean_form_art + ";\n"
+
+"var LawArtLukas = " + clean_form_art_lukas + ";\n"
 )
 vari.close()
 
 vari = open("pythonvariables.js", "r")
-print(var.read())
+print(vari.read())
 '''
