@@ -288,7 +288,7 @@ const Analyze = () => {
                     </div>
                     <Card className="card1">
                       <Card.Body>
-                        <Card.Title>Titel</Card.Title>
+                        <Card.Title>Title</Card.Title>
                         <div className="hr"></div>
                         <Card.Text>
                           Gesetz zur begleitenden Ausführung der Verordnung (EU) 2020/1503 und der Umsetzung der Richtlinie (EU) 2020/1504 zur Regelung von Schwarmfinanzierungsdienstleistern - Änderung der Verordnung über die Erhebung von Gebühren und die Umlegung von Kosten nach dem Finanzdienstleistungsaufsichtsgesetz
