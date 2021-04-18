@@ -176,21 +176,21 @@ print("Prompt part NTOS: " + "\n" + clean_form_intr + "\n")
 print("Prompt part Corresponding Laws: " + "\n" + clean_form_art + "\n")
 print("Prompt part Implement: " + "\n" + clean_form_art_lukas + "\n")
 
-#Add the changes into a JS File
 '''
+#Add the changes into a JS File
 vari = open("pythonvariables.js", "w")
 vari.write(
-"var LawCat = " + all_data[0] + ";\n"
-"var LawTitle = " + all_data[1] + ";\n"
-"var LawDate = " + all_data[2] + ";\n"
-"var LawDesc = " + all_data[3] + ";\n"
+"var LawCat = '" + all_data[0] + "';\n"
+"var LawTitle = '" + all_data[1] + "';\n"
+"var LawDate = '" + all_data[2] + "';\n"
+"var LawDesc = '" + all_data[3] + "';\n"
 
-"var HyperHyper = " + file_source + ";\n"
+"var HyperHyper = '" + file_source + "';\n"
 
-"var LawPdfDesc = " + clean_form_intr + ";\n"
-"var LawArticles = " + clean_form_art + ";\n"
+"var LawPdfDesc = '" + clean_form_intr + "';\n"
+"var LawArticles = '" + clean_form_art + "';\n"
 
-"var LawArtLukas = " + clean_form_art_lukas + ";\n"
+"var LawArtLukas = '" + clean_form_art_lukas + "';\n"
 )
 vari.close()
 
