@@ -147,17 +147,17 @@ const Analyze = () => {
   const summary = (scraped_sum) => { 
     openai.Completion.create({
       engine: "davinci",
-      prompt: `Mein Anwalt fragte mich was dieses Gesetz bedeuted:\n\n'''\n ${scraped_sum}\n'''\ntl;dr:\n'''`,
-      temperature: 0.25,
-      max_tokens: 306,
-      top_p: 0.5,
+      prompt: `Ein Anwalt bat mich, die 4 wichtigsten Änderungen dieses Gesetzes zu erklären:\n ${scraped_sum}\ntl;dr:\n1.`,
+      temperature: 0.08,
+      max_tokens: 406,
+      top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0,
       stream: false,
       logprobs: null,
       echo: false,
       best_of: 1,
-      stop: "'''",
+      stop: "4.",
     }).then((response) => {
       console.log(response);
       updateLaw(response.choices[0].text, "summary")
@@ -392,7 +392,7 @@ The legal acts must either be implemented by mid-June 2021 or will apply for the
                       </Row>
                     <Card className="card1">
                       <Card.Body>
-                        <Card.Title>Titel</Card.Title>
+                        <Card.Title>Title</Card.Title>
                         <div className="hr"></div>
                         <Card.Text>
                           {law.scraper.title}

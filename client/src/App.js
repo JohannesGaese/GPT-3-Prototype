@@ -23,7 +23,6 @@ function App({ location }) {
             <Switch>
               <Route exact path={["/", "/analyze"]} component={Analyze} />
               <Route exact path={"/implement"} component={Implement} />              
-              <Route exact path={"/script"} component={PythonScript} />
             </Switch>
             </BrowserRouter>
         </div>
