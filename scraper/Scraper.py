@@ -11,12 +11,12 @@ import PyPDF2
 #Open Website
 URL = 'https://www.bundesfinanzministerium.de/Content/DE/Gesetzestexte/Gesetze_Gesetzesvorhaben/Abteilungen/Abteilung_VII/19_Legislaturperiode/2021-03-24-Schwarmfinanzierung-BegleitG/0-Gesetz.html'
 page = requests.get(URL)
-print("hallo")
+
 soup = bs(page.content, 'html.parser')
 
 #Scrape Website
-gesetze = soup.find_all('div', class_='article-header')
-for gesetz in gesetze:
+gesetz = soup.find_all('div', class_='article-header')
+for gesetz in gesetz:
     category = str(gesetz.find('p', class_='dachzeile').getText())
     title = str(gesetz.find('h1', class_='isFirstInSlot').getText())
 
@@ -26,7 +26,6 @@ for gesetztext in gesetztexte:
     desc = str(gesetztext.find('p').getText())
 
 all_data = [category.replace('\n','').strip(), title.replace('\xad', '').replace('\n', '').strip(), date.replace('\n', '').strip(), desc.replace('\n', '').strip()]
-print(all_data)
 
 gesetztexte = soup.find_all('div', class_='article-text')
 for gesetztext in gesetztexte:
@@ -55,69 +54,87 @@ open(filename, 'wb').write(get_the_pdf.content)
 saved_pdf = open(filename, 'rb')
 pdfReader = PyPDF2.PdfFileReader(saved_pdf)
 
-#getting all the pages
-num_pages = pdfReader.numPages
-count = 0
+#getting the important pages robin
 gesetzgebung_content = []
+gesetzgebung_orbin = []
+gesetzgebung_robin = []
 
-while count < num_pages:
-    texts = " "
-    pageObj = pdfReader.getPage(count)
-    count += 1
-    texts = pageObj.extractText()
-    clean_text = re.sub('-', '', texts)
-    gesetzgebung_content.append(clean_text)
+pageObj1 = pdfReader.getPage(0)
+pageObj2 = pdfReader.getPage(4)
+pageObj3 = pdfReader.getPage(5)
 
-#turn list back into string
+text1 = pageObj1.extractText()
+text2 = pageObj2.extractText()
+text3 = pageObj3.extractText()
+
+gesetzgebung_content.append(text1)
+gesetzgebung_orbin.append(text2)
+gesetzgebung_robin.append(text3)
+
+#getting the important page lukas
+artikel_lukas = []
+pageObjLukas = pdfReader.getPage(31)
+textLukas = pageObjLukas.extractText()
+artikel_lukas.append(textLukas)
+
+saved_pdf.close()
+
+#turn robins lists back into string
 gesetzgebung_content_str = ' '.join([str(elem) for elem in gesetzgebung_content])
+clean_text = re.sub('-', '', gesetzgebung_content_str)
+gesetzgebung_orbin_str = ' '.join([str(elem) for elem in gesetzgebung_orbin])
+clean_text_or = re.sub('-', '', gesetzgebung_orbin_str)
+gesetzgebung_robin_str = ' '.join([str(elem) for elem in gesetzgebung_robin])
+clean_text_ro = re.sub('-', '', gesetzgebung_robin_str)
 
-
-#new list where every word has its own index
+#new list of robin where every word has its own index
 def Convert(string):
     li = list(string.split(" "))
     return li
 
-gesetzgebung_content_w_by_w = Convert(gesetzgebung_content_str)
+gesetzgebung_content_w_by_w = Convert(clean_text)
+gg_or = Convert(clean_text_or)
+gg_ro = Convert(clean_text_ro)
 
-#print(gesetzgebung_content_w_by_w[1311:1800])
+#turn lukas list back into string
+artikel_lukas_str = ' '.join([str(elem) for elem in artikel_lukas])
+clean_text_lukas = re.sub('-', '', artikel_lukas_str)
+
+lukas_w_by_w = Convert(clean_text_lukas)
 
 #get the introduction
 referentenentwurf_start = gesetzgebung_content_w_by_w.index("\nReferentenentwurf\n")
 referentenentwurf_end = gesetzgebung_content_w_by_w.index("\nA.")
-print("hallo")
 introduction = gesetzgebung_content_w_by_w[referentenentwurf_start:referentenentwurf_end]
-introduction_str = ' '.join([str(elem) for elem in introduction])
-print(introduction_str)
-'''
-#get the articles
-artikelliste_start = gesetzgebung_content_w_by_w.index("\nInhaltsübersicht\n")
-this_part_end = gesetzgebung_content_w_by_w.index("\n2019/1238\n")
-def_artikelliste_start = artikelliste_start - 7
-robin_lukas_first = gesetzgebung_content_w_by_w[def_artikelliste_start:this_part_end]
-robin_lukas_str = ' '.join([str(elem) for elem in robin_lukas_first])
 
-robin_lukas = Convert(robin_lukas_str)
+#get the articles first part
+lr1 = gg_or.index("\nInhaltsübersicht\n")
+lr1_start = lr1 - 7
+lr1_end = gg_or.index("Umlegung")
+lr1_final = lr1_end + 6
+articles_first_part = gg_or[lr1_start:lr1_final]
 
-#page1 robins scraper
-page1_robin_start = robin_lukas[0]
-page1_robin_end = robin_lukas.index('\nDieses')
-page1_robin = robin_lukas[page1_robin_start:page1_robin_end]
-print(page1_robin)
-'''
+#get the articles second part
+lr2 = gg_ro.index("\nWeitere")
+lr2_start = lr2 - 2
+lr2_end = gg_ro.index("\nInkrafttreten\n")
+lr2_final = lr2_end + 1
+articles_second_part = gg_ro[lr2_start:lr2_final]
 
-'''
-#page2 robins scraper
-page2_robin_start = robin_lukas.index()
-page2_robin_end = robin_lukas.index()
-page2_robin = robin_lukas.index()
+articles_first_part_str = ' '.join([str(elem) for elem in articles_first_part])
+articles_second_part_str = ' '.join([str(elem) for elem in articles_second_part])
+
+al_ge_str = articles_first_part_str + articles_second_part_str
+artikelliste_gesetzentwurf = Convert(al_ge_str)
+
 
 #part lukas
-part_lukas_start = robin_lukas.index()
-part_lukas_end = robin_lukas.index()
-part_lukas = robin_lukas.index()
+part_lukas_start = lukas_w_by_w.index("10\n")
+part_lukas_start_def = part_lukas_start - 1
+part_lukas_end = lukas_w_by_w.index("338c")
+part_lukas_end_def = part_lukas_end + 5
+part_lukas = lukas_w_by_w[part_lukas_start_def:part_lukas_end_def]
 
-print(artikelliste_end)
-'''
 '''
 relevant variables
 
@@ -126,16 +143,34 @@ Category = category
 Title = title
 Date = date
 Description (on website) = desc
-Array with main data = all_data
-
+Array with all of the data above = all_data
 
 PDF
 Link to PDF = file_source
-PDF text as string = gesetzgebung_content_str
+PDF text as string = clean_text
 PDF text as list = gesetzgebung_content_w_by_w
-
 
 Data Scraper Robin
 Referentenentwurf (1st page) = introduction
-erste Seite Artikel = artikelliste_page1
+Artikel = artikelliste_gesetzentwurf
+
+Data Lukas
+Artikel von Lukas = part_lukas
+
+vari = open("pythonvariables.js", "w")
+vari.write(
+"var LawCat = "
+"var LawTitle = "
+"var LawDate = "
+"var LawDesc = " 
+"var LawCat = "
+"var LawCat = "
+"var LawCat = "
+"var LawCat = "
+"var LawCat = "
+)
+vari.close()
+
+vari = open("demofile2.txt", "r")
+print(var.read())
 '''
