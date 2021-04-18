@@ -108,7 +108,6 @@ const Home = () => {
  
   // summary requ.
   const summary = (scraped_sum) => { 
-
     openai.Completion.create({
       engine: "davinci",
       prompt: `Mein Anwalt fragte mich was dieses Gesetz bedeuted:\n\n'''\n ${scraped_sum}\n'''\ntl;dr:\n'''`,
